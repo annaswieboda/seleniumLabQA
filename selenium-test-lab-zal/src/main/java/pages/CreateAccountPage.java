@@ -13,6 +13,7 @@ public class CreateAccountPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
     @FindBy(css = "#Email")
     private WebElement emailTxt;
 
@@ -27,6 +28,9 @@ public class CreateAccountPage {
 
     @FindBy(css = ".btn-success")
     private WebElement createButtonElm;
+
+    @FindBy(css = "#ConfirmPassword-error")
+    private WebElement confirmPasswordErrorTxt;
 
     public CreateAccountPage typeEmail(String email) {
         emailTxt.clear();
@@ -45,6 +49,7 @@ public class CreateAccountPage {
         confirmPasswordTxt.sendKeys(password);
         return this;
     }
+
     public CreateAccountPage registerNewUser() {
         registerBtn.click();
         return new CreateAccountPage(driver);
@@ -54,5 +59,11 @@ public class CreateAccountPage {
         Assert.assertTrue(createButtonElm.getText().contains("Create your first process"));
 
         return this;
+    }
 
-}}
+    public CreateAccountPage assertPasswordDoNotMatch() {
+        Assert.assertTrue(confirmPasswordErrorTxt.getText().contains("The password and confirmation password do not match."));
+
+        return this;
+    }
+}
