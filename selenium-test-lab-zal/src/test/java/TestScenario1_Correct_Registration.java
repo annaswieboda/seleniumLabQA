@@ -1,5 +1,4 @@
 import org.testng.annotations.Test;
-import pages.HomePage;
 import pages.LoginPage;
 
 import java.util.UUID;

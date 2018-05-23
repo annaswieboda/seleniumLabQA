@@ -26,11 +26,11 @@ public class CreateAccountPage {
     @FindBy(css = "button[type=submit]")
     private WebElement registerBtn;
 
-    @FindBy(css = ".btn-success")
-    private WebElement createButtonElm;
-
     @FindBy(css = "#ConfirmPassword-error")
     private WebElement confirmPasswordErrorTxt;
+
+    @FindBy(css = ".text-danger.validation-summary-errors > ul > li")
+    private WebElement passwordError;
 
     public CreateAccountPage typeEmail(String email) {
         emailTxt.clear();
@@ -50,15 +50,15 @@ public class CreateAccountPage {
         return this;
     }
 
-    public CreateAccountPage registerNewUser() {
+    public HomePage registerNewUser() {
         registerBtn.click();
-        return new CreateAccountPage(driver);
+        return new HomePage(driver);
     }
 
-    public CreateAccountPage assertButtonCreateYourFirstProcessIsShown() {
-        Assert.assertTrue(createButtonElm.getText().contains("Create your first process"));
 
-        return this;
+    public CreateAccountPage registerWithError() {
+        registerBtn.click();
+        return new CreateAccountPage(driver);
     }
 
     public CreateAccountPage assertPasswordDoNotMatch() {
@@ -66,4 +66,11 @@ public class CreateAccountPage {
 
         return this;
     }
+
+    public CreateAccountPage assertPasswordErrorIsShown(String errorMessage) {
+        Assert.assertTrue(passwordError.isDisplayed());
+        Assert.assertEquals(passwordError.getText(), errorMessage);
+        return this;
+    }
+
 }
