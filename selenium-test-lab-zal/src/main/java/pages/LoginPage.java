@@ -3,14 +3,11 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
-    protected WebDriver driver;
 
+public class LoginPage extends SeleniumPage {
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     @FindBy(css = "a[href*=Register]")
@@ -22,7 +19,7 @@ public class LoginPage {
     @FindBy(css = "#Password")
     private WebElement passwordTxt;
 
-    @FindBy(css="button[type=submit")
+    @FindBy(css = "button[type=submit")
     private WebElement loginBtn;
 
     public CreateAccountPage goToRegisterPage() {
@@ -30,20 +27,20 @@ public class LoginPage {
         return new CreateAccountPage(driver);
     }
 
-    public LoginPage typeEmail(String email){
+    public LoginPage typeEmail(String email) {
         emailTxt.clear();
         emailTxt.sendKeys(email);
         return this;
 
     }
 
-    public LoginPage typePassword (String password){
+    public LoginPage typePassword(String password) {
         passwordTxt.clear();
         passwordTxt.sendKeys(password);
         return this;
     }
 
-    public HomePage submitLogin(){
+    public HomePage submitLogin() {
         loginBtn.click();
         return new HomePage(driver);
     }
